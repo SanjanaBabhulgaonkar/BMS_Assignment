@@ -12,6 +12,7 @@ class SearchViewController: UIViewController {
     //MARK : IBoutlets
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tblViw: UITableView!
+    @IBOutlet weak var lblRecentlySearch: UILabel!
     
     //Mark :- Variables
     var arrResults = [Results]()
@@ -19,7 +20,8 @@ class SearchViewController: UIViewController {
     var isSearchClicked : Bool = false
     var searchedText : String = ""
     var inputArray = [String]()
-    
+    var listOfMoivesModel = ListOfMoivesModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -62,6 +64,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource  {
             }
         }else{
             if Appconstant.shared.arrCachedData.count > 0{
+                lblRecentlySearch.text = "Recently Searched"
                 cell.textLabel?.text = Appconstant.shared.arrCachedData[indexPath.row]
             }else{
                 if arrResults.count > 0{
@@ -74,17 +77,24 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource  {
     
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
         if isSearchClicked{
             if arrSearchResult.count > 0{
                 let clickedItem = arrSearchResult[indexPath.row].title
                 Appconstant.shared.arrCachedData.append(clickedItem!)
+                vc?.selecetedMovieId = String(arrSearchResult[indexPath.row].id!)
             }
         }else{
             if arrResults.count > 0{
                 let clickedItem = arrResults[indexPath.row].title
                 Appconstant.shared.arrCachedData.append(clickedItem ?? "")
+                vc?.selecetedMovieId = String(arrResults[indexPath.row].id!)
             }
         }
+        
+        self.navigationController?.pushViewController(vc!, animated: true)
+
     }
 }
 
