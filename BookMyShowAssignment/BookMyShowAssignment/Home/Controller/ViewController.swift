@@ -9,8 +9,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    //MARK : IBoutlets
     @IBOutlet weak var tblViw: UITableView!
     
+    //Mark :- Variables
     var listOfMoivesModel = ListOfMoivesModel()
     var pageCount = 1
 
@@ -67,12 +69,11 @@ class ViewController: UIViewController {
     }
     
     /// This method is used to show detail page
-    @objc func bookTapped(){
+    @objc func bookTapped(sender:UIButton){
         let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+        vc?.selecetedMovieId = listOfMoivesModel.getSelectedItemMovieID(row: sender.tag)
         self.navigationController?.pushViewController(vc!, animated: true)
     }
-    
-    
     
 }
 
@@ -95,15 +96,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource  {
         cell.viwBackground.layer.borderColor = UIColor.black.cgColor
         cell.btnBook.setTitle("BOOK", for: .normal)
         cell.btnBook.layer.cornerRadius = 5
+        cell.btnBook.tag = indexPath.row
+        cell.btnBook.addTarget(self,action:#selector(bookTapped(sender:)),for: .touchUpInside)
         listOfMoivesModel.configureData(cell: cell, row: indexPath.row)
         return cell
      }
-       
-       // method to run when table view cell is tapped
-       func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           print("You tapped cell number \(indexPath.row).")
-       }
     
+    // method to run when table view cell is tapped
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("You tapped cell number \(indexPath.row).")
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+        vc?.selecetedMovieId = listOfMoivesModel.getSelectedItemMovieID(row: indexPath.row)
+        self.navigationController?.pushViewController(vc!, animated: true)
+    }
         
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
          let spinner = UIActivityIndicatorView(style: .gray)

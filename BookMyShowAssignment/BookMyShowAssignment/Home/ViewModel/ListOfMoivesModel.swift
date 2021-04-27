@@ -10,8 +10,8 @@ import Kingfisher
 
 class ListOfMoivesModel: NSObject {
  
+    //Mark :- Variables
     var arrResults = [Results]()
-    var imageBasePath = "https://image.tmdb.org/t/p/w500"
     var maxPageCount : Int = 1
     
     func wsListing(pageCount:Int,completion: @escaping () -> Void, completionError: @escaping () -> Void)
@@ -56,11 +56,19 @@ class ListOfMoivesModel: NSObject {
             cell.lblMovieTitle.text = objResults.original_title
             let releaseDate = Appconstant.shared.formatDate(date: objResults.release_date! , currentformat : "yyyy-MM-dd" , requiredformat : "MMM dd,yyyy")
             cell.lblReleaseDate.text = releaseDate
-            let finalImgUrl = imageBasePath + (objResults.poster_path ?? "")
+            let finalImgUrl = Appconstant.shared.imageBasePath + (objResults.poster_path ?? "")
             let urlString = finalImgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             let imagURL = URL(string: urlString ?? "")
             cell.imgViw.kf.setImage(with: imagURL)
         }
+    }
+    
+    func getSelectedItemMovieID(row: Int) -> String {
+        if self.arrResults.count > 0{
+            let objResults = self.arrResults[row]
+            return String(objResults.id!)
+        }
+        return ""
     }
 
     func parse(json: Data) -> [Results]? {

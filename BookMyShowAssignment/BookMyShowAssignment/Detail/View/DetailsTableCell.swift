@@ -1,20 +1,20 @@
 //
-//  ListOfMoviesTableCell.swift
+//  DetailsTableCell.swift
 //  BookMyShowAssignment
 //
-//  Created by Sanjana Babhulgaonkar on 25/04/21.
+//  Created by Sanjana Babhulgaonkar on 27/04/21.
 //
 
 import UIKit
 
-class ListOfMoviesTableCell: UITableViewCell {
-    
-    //MARK : IBoutlets
+class DetailsTableCell: UITableViewCell {
+
+    //Mark :- IBOutlets
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var viwBackground: UIView!
+    @IBOutlet weak var lblGeners: UILabel!
     @IBOutlet weak var imgViw: UIImageView!
-    @IBOutlet weak var lblMovieTitle: UILabel!
-    @IBOutlet weak var btnBook: UIButton!
-    @IBOutlet weak var lblReleaseDate: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

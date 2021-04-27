@@ -13,8 +13,9 @@ class Appconstant: NSObject {
     
     var apiKeyConstant = "39cc9a1b8a788b673e9b63ad569ad5fc"
     let baseAPIURL = "https://api.themoviedb.org/3/movie/"
+    var imageBasePath = "https://image.tmdb.org/t/p/w500"
+    var arrCachedData = [String]()
 
-    
     /// Formats date to given format based on current format
     ///
     /// - Parameters:

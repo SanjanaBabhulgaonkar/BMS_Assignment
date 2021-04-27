@@ -61,6 +61,34 @@ struct DetailsBaseItem : Decodable {
 		case vote_average = "vote_average"
 		case vote_count = "vote_count"
 	}
-
+  
+	init(from decoder: Decoder) throws {
+		let values = try decoder.container(keyedBy: CodingKeys.self)
+		adult = try values.decodeIfPresent(Bool.self, forKey: .adult)
+		backdrop_path = try values.decodeIfPresent(String.self, forKey: .backdrop_path)
+		belongs_to_collection = try values.decodeIfPresent(String.self, forKey: .belongs_to_collection)
+		budget = try values.decodeIfPresent(Int.self, forKey: .budget)
+		genres = try values.decodeIfPresent([Genres].self, forKey: .genres)
+		homepage = try values.decodeIfPresent(String.self, forKey: .homepage)
+		id = try values.decodeIfPresent(Int.self, forKey: .id)
+		imdb_id = try values.decodeIfPresent(String.self, forKey: .imdb_id)
+		original_language = try values.decodeIfPresent(String.self, forKey: .original_language)
+		original_title = try values.decodeIfPresent(String.self, forKey: .original_title)
+		overview = try values.decodeIfPresent(String.self, forKey: .overview)
+		popularity = try values.decodeIfPresent(Double.self, forKey: .popularity)
+		poster_path = try values.decodeIfPresent(String.self, forKey: .poster_path)
+		production_companies = try values.decodeIfPresent([Production_companies].self, forKey: .production_companies)
+		production_countries = try values.decodeIfPresent([Production_countries].self, forKey: .production_countries)
+		release_date = try values.decodeIfPresent(String.self, forKey: .release_date)
+		revenue = try values.decodeIfPresent(Int.self, forKey: .revenue)
+		runtime = try values.decodeIfPresent(Int.self, forKey: .runtime)
+		spoken_languages = try values.decodeIfPresent([Spoken_languages].self, forKey: .spoken_languages)
+		status = try values.decodeIfPresent(String.self, forKey: .status)
+		tagline = try values.decodeIfPresent(String.self, forKey: .tagline)
+		title = try values.decodeIfPresent(String.self, forKey: .title)
+		video = try values.decodeIfPresent(Bool.self, forKey: .video)
+		vote_average = try values.decodeIfPresent(Double.self, forKey: .vote_average)
+		vote_count = try values.decodeIfPresent(Int.self, forKey: .vote_count)
+	}
 
 }
